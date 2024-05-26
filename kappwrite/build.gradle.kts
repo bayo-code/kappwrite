@@ -1,12 +1,13 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinxSerialization)
+    id("module.publication")
+    `maven-publish`
 }
-
-group = "com.bayocode.kappwrite"
 
 kotlin {
     androidTarget {
@@ -52,7 +53,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+            implementation(libs.kotlinx.serialization.json)
             api("io.ktor:ktor-client-core:2.3.11")
             implementation("io.ktor:ktor-client-logging:$ktor_version")
             implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
@@ -102,3 +103,40 @@ android {
         }
     }
 }
+
+fun loadEnv() {
+    val properties = Properties()
+    rootProject.file("local.properties").inputStream().use {
+        properties.load(it)
+    }
+
+    properties.forEach { (key, value) ->
+        ext[key.toString()] = value
+    }
+}
+
+fun getToken(): String {
+    val systemToken: String = System.getenv("GIT_TOKEN") ?: ext["GIT_TOKEN"].toString()
+    return systemToken
+}
+
+loadEnv()
+
+publishing {
+    repositories.maven {
+        name = "Gitea"
+        url = uri("https://git.braincrunchlabs.tech/api/packages/bayo-code/maven")
+
+        credentials(HttpHeaderCredentials::class) {
+            name = "Authorization"
+            value = "token ${getToken()}"
+        }
+
+        authentication {
+            create<HttpHeaderAuthentication>("header")
+        }
+    }
+}
+
+group = "com.bayocode.kappwrite"
+version = "0.0.2-SNAPSHOT"

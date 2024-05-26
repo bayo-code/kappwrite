@@ -25,6 +25,7 @@ import io.ktor.client.request.header
 import io.ktor.client.request.parameter
 import io.ktor.client.request.request
 import io.ktor.client.request.setBody
+import io.ktor.client.request.url
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HeadersBuilder
@@ -33,6 +34,7 @@ import io.ktor.http.contentType
 import io.ktor.http.encodedPath
 import io.ktor.http.escapeIfNeeded
 import io.ktor.http.isSuccess
+import io.ktor.http.path
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.utils.io.ByteReadChannel
 import kotlinx.coroutines.CoroutineScope
@@ -204,12 +206,9 @@ class Client(
     ): T {
         val response = client.request {
             this.method = io.ktor.http.HttpMethod(method.nameUppercase)
-            this.url {
-                host = endpoint
-                encodedPath = path
-                params.forEach { (key, value) ->
-                    parameter(key, value)
-                }
+            url(urlString = endpoint + path)
+            params.forEach { (key, value) ->
+                parameter(key, value)
             }
             (headers + this@Client.headers).forEach {
                 header(it.key, it.value)
