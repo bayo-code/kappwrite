@@ -18,7 +18,7 @@ data class Preferences<T>(
      * Additional properties
      */
     @SerialName("data")
-    val data: T
+    val data: T? = null
 ) {
     @OptIn(InternalSerializationApi::class)
     fun toMap(): Map<String, Any> = mapOf(

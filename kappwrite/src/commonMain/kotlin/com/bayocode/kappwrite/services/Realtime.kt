@@ -25,6 +25,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.decodeFromJsonElement
 import kotlin.coroutines.CoroutineContext
 
 class Realtime(client: Client) : Service(client), CoroutineScope {
@@ -168,7 +170,7 @@ class Realtime(client: Client) : Service(client), CoroutineScope {
     }
 
     private suspend fun handleResponseEvent(message: RealtimeResponse) {
-        val event = json.decodeFromString<RealtimeResponseEvent<Any>>(json.encodeToString(message.data))
+        val event = json.decodeFromJsonElement<RealtimeResponseEvent<JsonElement>>(message.data)
         if (event.channels.isEmpty()) {
             return
         }

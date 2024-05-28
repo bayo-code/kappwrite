@@ -3,6 +3,7 @@ package com.bayocode.kappwrite.models
 import io.ktor.utils.io.core.Closeable
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 import kotlin.collections.Collection
 
 @Serializable
@@ -15,13 +16,13 @@ data class RealtimeSubscription(
 @Serializable
 data class RealtimeCallback(
     val channels: Collection<String>,
-    val callback: (RealtimeResponseEvent<@Contextual Any>) -> Unit
+    val callback: (RealtimeResponseEvent<JsonElement>) -> Unit
 )
 
 @Serializable
 open class RealtimeResponse(
     val type: String,
-    val data: @Contextual Any
+    val data: JsonElement
 )
 
 @Serializable

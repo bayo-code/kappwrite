@@ -23,11 +23,11 @@ class Databases(client: Client) : Service(client) {
      * @return [DocumentList<T>]
      */
     @JvmOverloads
-    suspend fun <T> listDocuments(
+    suspend fun listDocuments(
         databaseId: String,
         collectionId: String,
         queries: List<String>? = null,
-    ): DocumentList<T> {
+    ): DocumentList {
         val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
@@ -60,13 +60,13 @@ class Databases(client: Client) : Service(client) {
      * @return [Document<T>]
      */
     @JvmOverloads
-    suspend fun <T> createDocument(
+    suspend fun createDocument(
         databaseId: String,
         collectionId: String,
         documentId: String,
         data: Any,
         permissions: List<String>? = null,
-    ): Document<T> {
+    ): Document {
         val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
@@ -100,12 +100,12 @@ class Databases(client: Client) : Service(client) {
      * @return [Document<T>]
      */
     @JvmOverloads
-    suspend fun <T> getDocument(
+    suspend fun getDocument(
         databaseId: String,
         collectionId: String,
         documentId: String,
         queries: List<String>? = null,
-    ): Document<T> {
+    ): Document {
         val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
@@ -139,13 +139,13 @@ class Databases(client: Client) : Service(client) {
      * @return [Document<T>]
      */
     @JvmOverloads
-    suspend fun <T> updateDocument(
+    suspend fun updateDocument(
         databaseId: String,
         collectionId: String,
         documentId: String,
         data: Any? = null,
         permissions: List<String>? = null,
-    ): Document<T> {
+    ): Document {
         val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)

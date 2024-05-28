@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
  * Documents List
  */
 @Serializable
-data class DocumentList<T>(
+data class DocumentList(
     /**
      * Total number of documents documents that matched your query.
      */
@@ -19,7 +19,7 @@ data class DocumentList<T>(
      * List of documents.
      */
     @SerialName("documents")
-    val documents: List<Document<T>>,
+    val documents: List<Document>,
 
 ) {
     fun toMap(): Map<String, Any> = mapOf(

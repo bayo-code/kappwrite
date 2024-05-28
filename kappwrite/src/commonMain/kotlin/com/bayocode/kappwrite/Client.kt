@@ -89,7 +89,7 @@ class Client(
     private fun createClient(selfSigned: Boolean) = createHttpClient(selfSigned) {
         install(Logging) {
             logger = Logger.DEFAULT
-            level = LogLevel.HEADERS
+            level = LogLevel.BODY
             sanitizeHeader { header -> header == HttpHeaders.Authorization }
         }
         install(ContentNegotiation) {

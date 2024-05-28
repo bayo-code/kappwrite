@@ -3,6 +3,7 @@ package com.bayocode.kappwrite.models
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 
 
 /**
@@ -32,7 +33,7 @@ data class Execution(
      * Execution roles.
      */
     @SerialName("\$permissions")
-    val permissions: List<@Contextual Any>,
+    val permissions: List<JsonElement>,
 
     /**
      * Function ID.
@@ -106,7 +107,7 @@ data class Execution(
     @SerialName("duration")
     val duration: Double,
 
-) {
+    ) {
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
         "\$createdAt" to createdAt as Any,

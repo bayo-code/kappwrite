@@ -22,7 +22,7 @@ class Teams(client: Client) : Service(client) {
      * @return [TeamList<T>]
      */
     @JvmOverloads
-    suspend fun <T> list(
+    suspend inline fun <reified T> list(
         queries: List<String>? = null,
         search: String? = null,
     ): TeamList<T> {
@@ -55,7 +55,7 @@ class Teams(client: Client) : Service(client) {
      * @return [Team<T>]
      */
     @JvmOverloads
-    suspend fun <T> create(
+    suspend inline fun <reified T> create(
         teamId: String,
         name: String,
         roles: List<String>? = null,
@@ -87,7 +87,7 @@ class Teams(client: Client) : Service(client) {
      * @param teamId Team ID.
      * @return [Team<T>]
      */
-    suspend fun <T> get(
+    suspend inline fun <reified T> get(
         teamId: String,
     ): Team<T> {
         val apiPath = "/teams/{teamId}"
@@ -116,7 +116,7 @@ class Teams(client: Client) : Service(client) {
      * @param name New team name. Max length: 128 chars.
      * @return [Team<T>]
      */
-    suspend fun <T> updateName(
+    suspend inline fun <reified T> updateName(
         teamId: String,
         name: String,
     ): Team<T> {
@@ -396,7 +396,7 @@ class Teams(client: Client) : Service(client) {
      * @param teamId Team ID.
      * @return [Preferences<T>]
      */
-    suspend fun <T> getPrefs(
+    suspend inline fun <reified T> getPrefs(
         teamId: String,
     ): Preferences<T> {
         val apiPath = "/teams/{teamId}/prefs"
@@ -425,7 +425,7 @@ class Teams(client: Client) : Service(client) {
      * @param prefs Prefs key-value JSON object.
      * @return [Preferences<T>]
      */
-    suspend fun <T> updatePrefs(
+    suspend inline fun <reified T> updatePrefs(
         teamId: String,
         prefs: Any,
     ): Preferences<T> {

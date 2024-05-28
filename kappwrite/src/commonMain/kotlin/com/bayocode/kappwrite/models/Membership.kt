@@ -3,6 +3,7 @@ package com.bayocode.kappwrite.models
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 
 
 /**
@@ -86,9 +87,9 @@ data class Membership(
      * User list of roles
      */
     @SerialName("roles")
-    val roles: List<@Contextual Any>,
+    val roles: List<JsonElement>,
 
-) {
+    ) {
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
         "\$createdAt" to createdAt as Any,
@@ -123,7 +124,7 @@ data class Membership(
             joined = map["joined"] as String,
             confirm = map["confirm"] as Boolean,
             mfa = map["mfa"] as Boolean,
-            roles = map["roles"] as List<Any>,
+            roles = map["roles"] as List<JsonElement>,
         )
     }
 }

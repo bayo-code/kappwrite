@@ -43,7 +43,7 @@ data class Target(
      * Provider ID.
      */
     @SerialName("providerId")
-    var providerId: String?,
+    var providerId: String? = null,
 
     /**
      * The target provider type. Can be one of the following: `email`, `sms` or `push`.

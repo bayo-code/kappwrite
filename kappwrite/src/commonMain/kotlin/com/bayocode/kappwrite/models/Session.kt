@@ -3,6 +3,7 @@ package com.bayocode.kappwrite.models
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 
 
 /**
@@ -170,7 +171,7 @@ data class Session(
      * Returns a list of active session factors.
      */
     @SerialName("factors")
-    val factors: List<@Contextual Any>,
+    val factors: List<JsonElement>,
 
     /**
      * Secret used to authenticate the user. Only included if the request was made with an API key
@@ -184,7 +185,7 @@ data class Session(
     @SerialName("mfaUpdatedAt")
     val mfaUpdatedAt: String,
 
-) {
+    ) {
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
         "\$createdAt" to createdAt as Any,
@@ -249,7 +250,7 @@ data class Session(
             countryCode = map["countryCode"] as String,
             countryName = map["countryName"] as String,
             current = map["current"] as Boolean,
-            factors = map["factors"] as List<Any>,
+            factors = map["factors"] as List<JsonElement>,
             secret = map["secret"] as String,
             mfaUpdatedAt = map["mfaUpdatedAt"] as String,
         )

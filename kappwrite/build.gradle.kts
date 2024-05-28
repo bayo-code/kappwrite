@@ -16,6 +16,7 @@ kotlin {
                 jvmTarget = "1.8"
             }
         }
+        publishAllLibraryVariants()
     }
     
     val xcf = XCFramework()
@@ -25,10 +26,10 @@ kotlin {
         iosSimulatorArm64(),
         macosArm64(),
         macosX64(),
-        tvosArm64(),
-        watchosX64(),
-        watchosArm64(),
-        tvosX64(),
+//        tvosArm64(),
+//        watchosX64(),
+//        watchosArm64(),
+//        tvosX64(),
     ).forEach {
         it.binaries.framework {
             baseName = "kappwrite"
@@ -37,52 +38,50 @@ kotlin {
         }
     }
 
-    listOf(
-        mingwX64(),
-        linuxX64(),
-        linuxArm64()
-    ).forEach {
-        it.binaries.staticLib {
-            baseName = "kappwrite"
-        }
-    }
+//    listOf(
+//        mingwX64(),
+//        linuxX64(),
+//        linuxArm64()
+//    ).forEach {
+//        it.binaries.staticLib {
+//            baseName = "kappwrite"
+//        }
+//    }
 
-    jvm()
-
-    val ktor_version = "2.3.11"
+    jvm("jvm")
 
     sourceSets {
         commonMain.dependencies {
             implementation(libs.kotlinx.serialization.json)
-            api("io.ktor:ktor-client-core:2.3.11")
-            implementation("io.ktor:ktor-client-logging:$ktor_version")
-            implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
-            implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
-            implementation("com.russhwolf:multiplatform-settings:1.1.1")
-            implementation("org.jetbrains.kotlinx:atomicfu:0.24.0")
-            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0-RC.2")
-            implementation("org.jetbrains.kotlinx:kotlinx-io-core:0.3.4")
+            api(libs.ktor.client.core)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.multiplatform.settings)
+            implementation(libs.atomicfu)
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.kotlinx.io.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
         androidMain.dependencies {
-            implementation("io.ktor:ktor-client-okhttp:2.3.11")
-            implementation("com.russhwolf:multiplatform-settings-no-arg:1.1.1")
-            implementation("androidx.startup:startup-runtime:1.1.1")
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.multiplatform.settings.no.arg)
+            implementation(libs.androidx.startup.runtime)
         }
         jvmMain.dependencies {
-            implementation("io.ktor:ktor-client-java:2.3.11")
+            implementation(libs.ktor.client.java)
         }
         appleMain.dependencies {
-            implementation("io.ktor:ktor-client-darwin:2.3.11")
+            implementation(libs.ktor.client.darwin)
         }
-        mingwMain.dependencies {
-            implementation("io.ktor:ktor-client-winhttp:2.3.11")
-        }
-        linuxMain.dependencies {
-            implementation("io.ktor:ktor-client-cio:2.3.11")
-        }
+//        mingwMain.dependencies {
+//            implementation(libs.ktor.client.winhttp)
+//        }
+//        linuxMain.dependencies {
+//            implementation(libs.ktor.client.cio)
+//        }
     }
 }
 

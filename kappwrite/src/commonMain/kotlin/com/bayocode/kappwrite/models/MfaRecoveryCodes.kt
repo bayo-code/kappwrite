@@ -3,6 +3,8 @@ package com.bayocode.kappwrite.models
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
 
 
 /**
@@ -14,9 +16,9 @@ data class MfaRecoveryCodes(
      * Recovery codes.
      */
     @SerialName("recoveryCodes")
-    val recoveryCodes: List<@Contextual Any>,
+    val recoveryCodes: List<JsonElement>,
 
-) {
+    ) {
     fun toMap(): Map<String, Any> = mapOf(
         "recoveryCodes" to recoveryCodes as Any,
     )
@@ -27,7 +29,7 @@ data class MfaRecoveryCodes(
         fun from(
             map: Map<String, Any>,
         ) = MfaRecoveryCodes(
-            recoveryCodes = map["recoveryCodes"] as List<Any>,
+            recoveryCodes = map["recoveryCodes"] as List<JsonElement>,
         )
     }
 }

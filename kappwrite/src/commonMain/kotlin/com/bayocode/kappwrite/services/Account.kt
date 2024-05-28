@@ -36,7 +36,7 @@ class Account(client: Client) : Service(client) {
      *
      * @return [User<T>]
      */
-    suspend fun <T: Any> get(klass: KClass<T>): User<T> {
+    suspend inline fun <reified T: Any> get(): User<T> {
         val apiPath = "/account"
 
         val apiParams = mutableMapOf<String, Any?>(
@@ -54,16 +54,6 @@ class Account(client: Client) : Service(client) {
     }
 
     /**
-     * Get account
-     *
-     * Get the currently logged in user.
-     *
-     * @return [User<T>]
-     */
-    @Throws(AppwriteException::class, CancellationException::class)
-    suspend fun get(): User<Map<String, Any>> = get(classOf())
-
-    /**
      * Create account
      *
      * Use this endpoint to allow a new user to register a new account in your project. After the user registration completes successfully, you can use the [/account/verfication](https://appwrite.io/docs/references/cloud/client-web/account#createVerification) route to start verifying the user email address. To allow the new user to login to their new account, you need to create a new [account session](https://appwrite.io/docs/references/cloud/client-web/account#createEmailSession).
@@ -75,7 +65,7 @@ class Account(client: Client) : Service(client) {
      * @return [User<T>]
      */
     @JvmOverloads
-    suspend fun <T> create(
+    suspend inline fun <reified T> create(
         userId: String,
         email: String,
         password: String,
@@ -110,7 +100,7 @@ class Account(client: Client) : Service(client) {
      * @param password User password. Must be at least 8 chars.
      * @return [User<T>]
      */
-    suspend fun <T> updateEmail(
+    suspend inline fun <reified T> updateEmail(
         email: String,
         password: String,
     ): User<T> {
@@ -254,7 +244,7 @@ class Account(client: Client) : Service(client) {
      * @param mfa Enable or disable MFA.
      * @return [User<T>]
      */
-    suspend fun <T> updateMFA(
+    suspend inline fun <reified T> updateMFA(
         mfa: Boolean,
     ): User<T> {
         val apiPath = "/account/mfa"
@@ -312,7 +302,7 @@ class Account(client: Client) : Service(client) {
      * @param otp Valid verification token.
      * @return [User<T>]
      */
-    suspend fun <T> updateMfaAuthenticator(
+    suspend inline fun <reified T> updateMfaAuthenticator(
         type: AuthenticatorType,
         otp: String,
     ): User<T> {
@@ -546,7 +536,7 @@ class Account(client: Client) : Service(client) {
      * @param name User name. Max length: 128 chars.
      * @return [User<T>]
      */
-    suspend fun <T> updateName(
+    suspend inline fun <reified T> updateName(
         name: String,
     ): User<T> {
         val apiPath = "/account/name"
@@ -576,7 +566,7 @@ class Account(client: Client) : Service(client) {
      * @return [User<T>]
      */
     @JvmOverloads
-    suspend fun <T> updatePassword(
+    suspend inline fun <reified T> updatePassword(
         password: String,
         oldPassword: String? = null,
     ): User<T> {
@@ -607,7 +597,7 @@ class Account(client: Client) : Service(client) {
      * @param password User password. Must be at least 8 chars.
      * @return [User<T>]
      */
-    suspend fun <T> updatePhone(
+    suspend inline fun <reified T> updatePhone(
         phone: String,
         password: String,
     ): User<T> {
@@ -636,7 +626,7 @@ class Account(client: Client) : Service(client) {
      *
      * @return [Preferences<T>]
      */
-    suspend fun <T> getPrefs(
+    suspend inline fun <reified T> getPrefs(
     ): Preferences<T> {
         val apiPath = "/account/prefs"
 
@@ -662,7 +652,7 @@ class Account(client: Client) : Service(client) {
      * @param prefs Prefs key-value JSON object.
      * @return [User<T>]
      */
-    suspend fun <T> updatePrefs(
+    suspend inline fun <reified T> updatePrefs(
         prefs: Any,
     ): User<T> {
         val apiPath = "/account/prefs"
@@ -1125,7 +1115,7 @@ class Account(client: Client) : Service(client) {
      *
      * @return [User<T>]
      */
-    suspend fun <T> updateStatus(
+    suspend inline fun <reified T> updateStatus(
     ): User<T> {
         val apiPath = "/account/status"
 

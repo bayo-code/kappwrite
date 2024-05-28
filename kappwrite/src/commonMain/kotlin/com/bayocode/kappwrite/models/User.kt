@@ -5,6 +5,7 @@ import com.bayocode.kappwrite.models.Target
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 
 
 /**
@@ -40,19 +41,19 @@ data class User<T>(
      * Hashed user password.
      */
     @SerialName("password")
-    var password: String?,
+    var password: String? = null,
 
     /**
      * Password hashing algorithm.
      */
     @SerialName("hash")
-    var hash: String?,
+    var hash: String? = null,
 
     /**
      * Password hashing algorithm configuration.
      */
     @SerialName("hashOptions")
-    var hashOptions: @Contextual Any?,
+    var hashOptions: JsonElement? = null,
 
     /**
      * User registration date in ISO 8601 format.
@@ -70,7 +71,7 @@ data class User<T>(
      * Labels for the user.
      */
     @SerialName("labels")
-    val labels: List<@Contextual Any>,
+    val labels: List<JsonElement>,
 
     /**
      * Password update time in ISO 8601 format.

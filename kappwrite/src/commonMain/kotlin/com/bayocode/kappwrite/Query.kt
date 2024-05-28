@@ -1,7 +1,9 @@
+@file:UseSerializers(AnySerializer::class)
 package com.bayocode.kappwrite
 
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.UseSerializers
 import kotlinx.serialization.encodeToString
 
 @Serializable

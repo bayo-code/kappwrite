@@ -1,5 +1,6 @@
 package com.bayocode.kappwrite.cookies
 
+import com.bayocode.kappwrite.AnySerializer
 import io.ktor.http.Cookie
 import io.ktor.http.CookieEncoding
 import io.ktor.util.date.GMTDate
@@ -29,9 +30,9 @@ object CookieSerializer: KSerializer<Cookie> {
         get() = buildClassSerialDescriptor(serialName = "io.ktor.http.Cookie") {
             element<String>("name")
             element<String>("value")
-            element<CookieEncoding>("encoding")
+            element("encoding", CookieEncodingSerializer.descriptor)
             element<Int>("maxAge")
-            element("expires", serialDescriptor<GMTDate>().nullable)
+            element("expires", GMTDateSerializer.descriptor.nullable)
             element("domain", serialDescriptor<String>().nullable)
             element("path", serialDescriptor<String>().nullable)
             element<Boolean>("secure")
@@ -56,9 +57,9 @@ object CookieSerializer: KSerializer<Cookie> {
             when (val index = decodeElementIndex(descriptor)) {
                 0 -> name = decodeStringElement(descriptor, index)
                 1 -> value = decodeStringElement(descriptor, index)
-                2 -> encoding = decodeSerializableElement(descriptor, index, serializer<CookieEncoding>())
+                2 -> encoding = decodeSerializableElement(descriptor, index, CookieEncodingSerializer)
                 3 -> maxAge = decodeIntElement(descriptor, index)
-                4 -> expires = decodeNullableSerializableElement(descriptor, index, serializer<GMTDate>())
+                4 -> expires = decodeNullableSerializableElement(descriptor, index, GMTDateSerializer)
                 5 -> domain = decodeNullableSerializableElement(descriptor, index, String.serializer())
                 6 -> path = decodeNullableSerializableElement(descriptor, index, String.serializer())
                 7 -> secure = decodeBooleanElement(descriptor, index)
@@ -88,9 +89,9 @@ object CookieSerializer: KSerializer<Cookie> {
         encoder.encodeStructure(descriptor) {
             encodeStringElement(descriptor, 0, value.name)
             encodeStringElement(descriptor, 1, value.value)
-            encodeSerializableElement(descriptor, 2, serializer<CookieEncoding>(), value.encoding)
+            encodeSerializableElement(descriptor, 2, CookieEncodingSerializer, value.encoding)
             encodeIntElement(descriptor, 3, value.maxAge)
-            encodeNullableSerializableElement(descriptor, 4, serializer<GMTDate>(), value.expires)
+            encodeNullableSerializableElement(descriptor, 4, GMTDateSerializer, value.expires)
             encodeNullableSerializableElement(descriptor, 5, String.serializer(), value.domain)
             encodeNullableSerializableElement(descriptor, 6, String.serializer(), value.path)
             encodeBooleanElement(descriptor, 7, value.secure)
@@ -130,7 +131,8 @@ object GMTDateSerializer: KSerializer<GMTDate> {
 }
 
 internal val serializers = SerializersModule {
-    contextual(CookieSerializer)
-    contextual(CookieEncodingSerializer)
     contextual(GMTDateSerializer)
+    contextual(CookieEncodingSerializer)
+    contextual(CookieSerializer)
+    contextual(AnySerializer)
 }
