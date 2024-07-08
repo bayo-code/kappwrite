@@ -102,7 +102,7 @@ private fun SecTrustRef.trustIsValid(): Boolean {
             val status = SecTrustEvaluate(this@trustIsValid, result.ptr)
             if (status == errSecSuccess) {
                 isValid = result.value == kSecTrustResultUnspecified ||
-                        result.value == kSecTrustResultProceed
+                    result.value == kSecTrustResultProceed
             }
         }
     }
