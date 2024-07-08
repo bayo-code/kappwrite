@@ -140,13 +140,13 @@ publishing {
 }
 
 group = "com.bayocode.kappwrite"
-version = "0.0.2-SNAPSHOT"
+version = "0.0.2"
 
 mavenPublishing {
     coordinates(
         groupId = "com.bayo-code",
         artifactId = "kappwrite",
-        version = "0.0.2-SNAPSHOT"
+        version = "0.0.2"
     )
 
     // Configure POM metadata for the published artifact
