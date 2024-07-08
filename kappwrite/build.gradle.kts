@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.kotlinxSerialization)
     id("module.publication")
     `maven-publish`
+    id("com.vanniktech.maven.publish") version "0.29.0"
 }
 
 kotlin {
@@ -26,10 +27,10 @@ kotlin {
         iosSimulatorArm64(),
         macosArm64(),
         macosX64(),
-//        tvosArm64(),
-//        watchosX64(),
-//        watchosArm64(),
-//        tvosX64(),
+        tvosArm64(),
+        watchosX64(),
+        watchosArm64(),
+        tvosX64(),
     ).forEach {
         it.binaries.framework {
             baseName = "kappwrite"
@@ -38,15 +39,15 @@ kotlin {
         }
     }
 
-//    listOf(
-//        mingwX64(),
-//        linuxX64(),
-//        linuxArm64()
-//    ).forEach {
-//        it.binaries.staticLib {
-//            baseName = "kappwrite"
-//        }
-//    }
+    listOf(
+        mingwX64(),
+        linuxX64(),
+        linuxArm64()
+    ).forEach {
+        it.binaries.staticLib {
+            baseName = "kappwrite"
+        }
+    }
 
     jvm("jvm")
 
@@ -76,12 +77,12 @@ kotlin {
         appleMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
-//        mingwMain.dependencies {
-//            implementation(libs.ktor.client.winhttp)
-//        }
-//        linuxMain.dependencies {
-//            implementation(libs.ktor.client.cio)
-//        }
+        mingwMain.dependencies {
+            implementation(libs.ktor.client.winhttp)
+        }
+        linuxMain.dependencies {
+            implementation(libs.ktor.client.cio)
+        }
     }
 }
 
