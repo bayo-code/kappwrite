@@ -316,7 +316,7 @@ class Client(
                 }
                 "bytes" -> {
                     val data = input.data as ByteArray
-                    FileToUpload(file.name, ContentType.parse(input.mimeType), channelProvider = ChannelProvider(data.size.toLong()) { ByteReadChannel(data) })
+                    FileToUpload(input.filename, ContentType.parse(input.mimeType), channelProvider = ChannelProvider(data.size.toLong()) { ByteReadChannel(data) })
                 }
                 else -> throw UnsupportedOperationException()
             }
@@ -368,7 +368,7 @@ class Client(
                         startIndex = offset.toInt(),
                         endIndex = end.toInt()
                     )
-                    FileToUpload(file.name, ContentType.parse(input.mimeType), channelProvider = ChannelProvider(buffer.size.toLong()) { ByteReadChannel(buffer) })
+                    FileToUpload(input.filename, ContentType.parse(input.mimeType), channelProvider = ChannelProvider(buffer.size.toLong()) { ByteReadChannel(buffer) })
                 }
                 else -> throw UnsupportedOperationException()
             }
