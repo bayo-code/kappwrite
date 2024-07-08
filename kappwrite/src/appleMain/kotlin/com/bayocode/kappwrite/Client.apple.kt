@@ -32,7 +32,7 @@ import platform.Security.kSecTrustResultInvalid
 import platform.Security.kSecTrustResultProceed
 import platform.Security.kSecTrustResultUnspecified
 
-@OptIn(ExperimentalForeignApi::class)
+@OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 actual fun createHttpClient(selfSigned: Boolean, block: HttpClientConfig<*>.() -> Unit): HttpClient {
     return HttpClient(Darwin) {
         engine {
@@ -102,7 +102,7 @@ private fun SecTrustRef.trustIsValid(): Boolean {
             val status = SecTrustEvaluate(this@trustIsValid, result.ptr)
             if (status == errSecSuccess) {
                 isValid = result.value == kSecTrustResultUnspecified ||
-                        result.value == kSecTrustResultProceed
+                    result.value == kSecTrustResultProceed
             }
         }
     }
