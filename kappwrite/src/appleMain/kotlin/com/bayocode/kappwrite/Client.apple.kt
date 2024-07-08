@@ -32,7 +32,7 @@ import platform.Security.kSecTrustResultInvalid
 import platform.Security.kSecTrustResultProceed
 import platform.Security.kSecTrustResultUnspecified
 
-@OptIn(ExperimentalForeignApi::class)
+@OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
 actual fun createHttpClient(selfSigned: Boolean, block: HttpClientConfig<*>.() -> Unit): HttpClient {
     return HttpClient(Darwin) {
         engine {
